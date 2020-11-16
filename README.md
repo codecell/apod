@@ -36,7 +36,12 @@ Follow the steps below run the game in a local environment; First ensure you hav
     ```cd apod```
 3. Install project dependencies.
     ```yarn OR npm install```
-4. Start and serve the development build.
+4. For the request to the NASA picture of the day API to work, you need to head over to this [link](https://api.nasa.gov/index.html#signUp) and sign up for your unique API key.
+
+5. Once signed up, create a .env file in the root of the project directory, check the .env.sample file attached to this project for the API key environment variable name and set the value to your unique key in the .env file. 
+Note: Ensure  not to make your unique key public.
+
+6. Start and serve the development build.
     ```yarn OR npm start```
 React app will automatically serve the compiled build on http://localhost:3000/ if the port is not in use, 
 if port 3000 is occupied, React will take another randomly available port.
