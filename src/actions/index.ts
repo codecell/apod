@@ -13,6 +13,7 @@ export interface Apod {
   date?: string;
   url?: string;
   msg?: string;
+  media_type?: string;
 }
 
 /**

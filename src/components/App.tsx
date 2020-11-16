@@ -40,7 +40,13 @@ const App = ():JSX.Element => {
     return (
       <React.Fragment>
         <ApodImageWrapper>
-          <ApodImage src={apods.url} />
+          {apods.media_type === "image" && <ApodImage src={apods.url} />}
+          {apods.media_type === "video" && <React.Fragment>
+            <video width="320" height="240" controls>
+              <source src={apods.url}></source>
+              Your browser does not support the video tag.
+            </video>
+          </React.Fragment>}
           <DateAreaWrapper>
             <input onChange={onDateSelect} type="date" value={date} name="date" id="date" />
             <button onClick={onButtonClick}>SUBMIT</button>
