@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../reducers';
 
+// Styled Components
 import {
   AppHeader, AppWrapper,
   ApodImageWrapper, ApodImage,
   ApiDataSection, DateAreaWrapper,
 } from './App.styles';
 
+// Action utils
 import { Apod, fetchApod } from '../actions';
 
 const App = ():JSX.Element => {
@@ -15,10 +17,12 @@ const App = ():JSX.Element => {
   const dispatch = useDispatch();
   const [date, setDate] = useState('');
 
+  // Make initial API call
   useEffect(() => {
     dispatch(fetchApod());
   }, [dispatch]);
 
+  // Update state with selected Date
   const onDateSelect = (event: React.ChangeEvent<HTMLInputElement>):void => {
     event.preventDefault();
 
@@ -26,6 +30,7 @@ const App = ():JSX.Element => {
     setDate(newDate);
   }
 
+  // Fetch data again for new date 
   const onButtonClick = (event: React.MouseEvent<HTMLButtonElement>):any => {
     event.preventDefault()
     return dispatch(fetchApod(date));
