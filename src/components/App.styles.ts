@@ -94,8 +94,20 @@ const ApodImage = styled.img.attrs({
   object-fit: contain;
 `;
 
+const ErroFlash = styled.div`
+  color: tomato;
+  width: 100%;
+  margin: auto;
+  height: 3em;
+
+  @media screen and (min-width: 40em) {
+    width: 75%;
+  }
+`
+
 export {
   AppWrapper, AppHeader,
   ApodImageWrapper, ApodImage,
   ApiDataSection, DateAreaWrapper,
+  ErroFlash,
 }

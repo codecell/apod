@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
-import apodReducer from './apod';
+import apod, { ApodReducerState } from './apod';
 import { Apod } from '../actions'
 
 export interface StoreState {
-  apods: Apod
+  apod: ApodReducerState;
 }
 
 export const reducers = combineReducers<StoreState>({
-  apods: apodReducer
+  apod,
 })

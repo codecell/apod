@@ -7,13 +7,16 @@ import {
   AppHeader, AppWrapper,
   ApodImageWrapper, ApodImage,
   ApiDataSection, DateAreaWrapper,
+  ErroFlash,
 } from './App.styles';
 
 // Action utils
 import { Apod, fetchApod } from '../actions';
 
 const App = ():JSX.Element => {
-  const apods:Apod = useSelector((state: StoreState) => state.apods);
+  const apods:Apod = useSelector((state: StoreState) => state.apod.apod);
+  const apodsRequestError:string = useSelector((state: StoreState) => state.apod.error);
+
   const dispatch = useDispatch();
   const [date, setDate] = useState('');
 
@@ -37,6 +40,10 @@ const App = ():JSX.Element => {
   }
 
  const showApod = ():JSX.Element => {
+   if (apodsRequestError) {
+      return (<ErroFlash>{apodsRequestError}</ErroFlash>)
+   }
+
     return (
       <React.Fragment>
         <ApodImageWrapper>
@@ -57,6 +64,7 @@ const App = ():JSX.Element => {
       </React.Fragment>
     )
   } 
+
     return (
       <AppWrapper>
         <AppHeader>

@@ -1,5 +1,5 @@
 
 
 export enum ActionTypes {
-  fetchApods,
+  fetchApods, fetchApodFailure
 }

@@ -22,21 +22,34 @@ export interface Apod {
  */
 export interface FetchApodAction {
   payload: Apod;
-  type: ActionTypes.fetchApods
+  type: ActionTypes.fetchApods | ActionTypes.fetchApodFailure;
+  error: string;
 }
 
+
 /**
- * @Object fetchApod - The fetch Apod data action creatior
+ * @Object fetchApod - The fetch Apod data action creator
  */
-export const fetchApod = (date:string = '2020-11-10') => {
+export const fetchApod = (date:string = '2020-11-12') => {
   return async (dispatch: Dispatch) => {
     const url = `https://api.nasa.gov/planetary/apod?date=${date}&api_key=${process.env.REACT_APP_API_KEY}`;
 
-    const response = await axios.get<Apod>(url)
+    try {
+      const response = await axios.get<Apod>(url)
 
-    dispatch<FetchApodAction>({
-      type: ActionTypes.fetchApods,
-      payload: response.data
-    })
+      dispatch<FetchApodAction>({
+        type: ActionTypes.fetchApods,
+        payload: response.data,
+        error: ''
+      });
+    } catch(error) {
+      dispatch<FetchApodAction>({
+        type: ActionTypes.fetchApodFailure,
+        payload: {},
+        error: error.response.data.msg
+      });
+    }    
   }
 }
+
+
