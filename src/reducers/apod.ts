@@ -17,12 +17,14 @@ const apodReducer = (state: ApodReducerState = initialState, action: FetchApodAc
     case ActionTypes.fetchApods:
       return {
         ...state,
-        apod: action.payload
+        apod: action.payload,
+        error: ''
       };
     case ActionTypes.fetchApodFailure:
       return {
         ...state,
-        error: action.error
+        error: action.error,
+        apod: {}
       };
     default:
       return state;

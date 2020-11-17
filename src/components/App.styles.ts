@@ -1,10 +1,8 @@
 import styled from 'styled-components';
-import { space } from 'styled-system';
 
 const AppWrapper = styled.div`
   height: 100vh;
-  padding: 3rem 5% 0;
-  ${space};
+  padding: 0 5% 0;
 
   @media screen and (min-width: 40em) {
     padding: 0 7%;
@@ -17,7 +15,7 @@ const AppHeader = styled.header`
   padding: 1% 0;
 
   @media screen and (min-width: 40em) {
-    padding: 4% 0;
+    padding: 0 0 2rem 0;
   }
 `;
 
@@ -98,7 +96,7 @@ const ErroFlash = styled.div`
   color: tomato;
   width: 100%;
   margin: auto;
-  height: 3em;
+  padding: 2.5em;
 
   @media screen and (min-width: 40em) {
     width: 75%;

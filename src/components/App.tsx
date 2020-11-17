@@ -7,7 +7,7 @@ import {
   AppHeader, AppWrapper,
   ApodImageWrapper, ApodImage,
   ApiDataSection, DateAreaWrapper,
-  ErroFlash,
+  ErroFlash
 } from './App.styles';
 
 // Action utils
@@ -34,16 +34,12 @@ const App = ():JSX.Element => {
   }
 
   // Fetch data again for new date 
-  const onButtonClick = (event: React.MouseEvent<HTMLButtonElement>):any => {
+  const onButtonClick = async (event: any) => {
     event.preventDefault()
-    return dispatch(fetchApod(date));
+     return dispatch(fetchApod(date));
   }
 
- const showApod = ():JSX.Element => {
-   if (apodsRequestError) {
-      return (<ErroFlash>{apodsRequestError}</ErroFlash>)
-   }
-
+ const showApod = () => {
     return (
       <React.Fragment>
         <ApodImageWrapper>
@@ -67,6 +63,7 @@ const App = ():JSX.Element => {
 
     return (
       <AppWrapper>
+        <ErroFlash>{apodsRequestError}</ErroFlash>
         <AppHeader>
           <h2>NASA Atronomy Picture of the day</h2>
         </AppHeader>

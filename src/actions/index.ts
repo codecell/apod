@@ -12,7 +12,6 @@ export interface Apod {
   explanation?: string;
   date?: string;
   url?: string;
-  msg?: string;
   media_type?: string;
 }
 
