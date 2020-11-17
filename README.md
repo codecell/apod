@@ -1,5 +1,5 @@
 ## Apod
-This mini-app uses NASA's picture of the API to display an image/video and a description for selected days.
+This mini-app uses NASA's picture of the day API to display an image/video and a description for selected days.
 
 ## Outline
 ## Outline
@@ -11,7 +11,7 @@ This mini-app uses NASA's picture of the API to display an image/video and a des
 - [Licence](#licence)
 
 ## Live Version
-The app ids deployed on netlify [here](https://apodnasa.netlify.app/)
+The app is deployed on netlify [here](https://apodnasa.netlify.app/)
 
 ## UI Preview
 
@@ -28,7 +28,7 @@ The app ids deployed on netlify [here](https://apodnasa.netlify.app/)
 - CSS
 
 ## Installation
-Follow the steps below run the game in a local environment; First ensure you have [Node.js](https://nodejs.org)installed.
+Follow the steps below to run the app in a local environment; First ensure you have [Node.js](https://nodejs.org)installed.
 
 1. Clone the repository from a terminal 
     ```git clone https://github.com/codecell/apod.git```.
