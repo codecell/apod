@@ -5,7 +5,7 @@ import { ActionTypes } from './types'
 // NOTE: Apod|apod anywhere used refers to **Astronomy Picture of the Day**
 
 /**
- * @object Apod - The expected response date from API call.
+ * @object Apod - The expected shape of response data from API call.
  */
 export interface Apod {
   copyright?: string;
@@ -16,7 +16,7 @@ export interface Apod {
 }
 
 /**
- * @object FetchApodAction - The dispatch Action type to be passed to the apodReducer to initiate 
+ * @object FetchApodAction - The shape of dispatch Action type to be passed to the apodReducer to initiate 
  * redux store Update
  */
 export interface FetchApodAction {
@@ -27,7 +27,7 @@ export interface FetchApodAction {
 
 
 /**
- * @Object fetchApod - The fetch Apod data action creator
+ * @description fetchApod - The fetch Apod data action creator
  */
 export const fetchApod = (date:string = '2020-11-12') => {
   return async (dispatch: Dispatch) => {
