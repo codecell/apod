@@ -29,7 +29,8 @@ export interface FetchApodAction {
 /**
  * @description fetchApod - The fetch Apod data action creator
  */
-export const fetchApod = (date:string = '2020-11-12') => {
+export const fetchApod = (date:string) => {
+
   return async (dispatch: Dispatch) => {
     const url = `https://api.nasa.gov/planetary/apod?date=${date}&api_key=${process.env.REACT_APP_API_KEY}`;
 
