@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import cogoToast from "cogo-toast";
+import { BsFillHeartFill } from "react-icons/bs";
 import ReactPlayer from "react-player/lazy";
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../reducers';
@@ -10,17 +11,21 @@ import {
   AppHeader, AppWrapper,
   ApodImageWrapper, ApodImage,
   ApiDataSection, DateAreaWrapper,
-  ErroFlash, ApodVideo, BtnToggle,
+  ErroFlash, ApodVideo, BtnToggle, Logo,
+  Navbar, NavItem,
 } from './App.styles';
+import Favorites from "./Favorites";
 
 // Action utils
 import { Apod, fetchApod } from '../actions';
 
 const App = ():JSX.Element => {
+  // Global state
   const apods:Apod = useSelector((state: StoreState) => state.apod.apod);
   const apodsRequestError:string = useSelector((state: StoreState) => state.apod.error);
 
   const dispatch = useDispatch();
+  // Local states
   const [date, setDate] = useState('');
   const [dateTextHelper, setDateTextHelper] = useState("");
 
@@ -37,19 +42,22 @@ const App = ():JSX.Element => {
 
     const newDate = event.target.value;
     setDate(newDate);
+    
+    setDateTextHelper(newDate);
+    if (newDate) {
+      cogoToast.loading(`Getting the NASA picture of the day for ${newDate}`, { position: "bottom-center" }).then(() => {
+
+        // Fetch data again for new date 
+        return dispatch(fetchApod(newDate));
+      });
+    }
   }
 
   
   const onButtonClick = async (event: any) => {
     event.preventDefault();
-    setDateTextHelper(date);
-    if (date) {
-      cogoToast.loading(`Getting the NASA picture of the day for ${date}`, { position: "bottom-center" }).then(() => {
-
-        // Fetch data again for new date 
-        return dispatch(fetchApod(date));
-      });
-    }
+    
+    // Add to favourites
   }
 
   // fetch Next date data
@@ -57,14 +65,14 @@ const App = ():JSX.Element => {
     event.preventDefault();
 
     const baseDateInts = date.split("-").map(item => parseInt(item, 10));
-    
-    setDate(new Date(`${baseDateInts[0]}-${baseDateInts[1]}-${(baseDateInts[2]++)}`).toJSON().slice(0, 10));
+    const nextDateString = new Date(`${baseDateInts[0]}-${baseDateInts[1]}-${(baseDateInts[2] + 1)}`).toJSON().slice(0, 10)
 
-    cogoToast.loading(`Getting the NASA picture of the day for ${date}`, { position: "bottom-center" })
+    cogoToast.loading(`Getting the NASA picture of the day for ${nextDateString}`, { position: "bottom-center" })
       .then(async () => {
-        setDateTextHelper(date);
+        setDateTextHelper(nextDateString);
       // Fetch data again for next date 
-      return dispatch(fetchApod(date));
+       dispatch(fetchApod(nextDateString));
+       return setDate(nextDateString);
     });
   }
 
@@ -74,14 +82,14 @@ const App = ():JSX.Element => {
     event.preventDefault();
 
     const baseDateInts = date.split("-").map(item => parseInt(item, 10));
-    
-    setDate(new Date(`${baseDateInts[0]}-${baseDateInts[1]}-${(baseDateInts[2] - 1)}`).toJSON().slice(0, 10));
+    const prevDateString = new Date(`${baseDateInts[0]}-${baseDateInts[1]}-${(baseDateInts[2] - 1)}`).toJSON().slice(0, 10)
 
-    return cogoToast.loading(`Getting the NASA picture of the day for ${date}`, { position: "bottom-center" })
+    cogoToast.loading(`Getting the NASA picture of the day for ${prevDateString}`, { position: "bottom-center" })
       .then(async () => {
         setDateTextHelper(date);
-      // Fetch data again for previous date 
-      await dispatch(fetchApod(date));
+      // Fetch data again for next date 
+       dispatch(fetchApod(prevDateString));
+       return setDate(prevDateString);
     });
   }
 
@@ -104,7 +112,10 @@ const App = ():JSX.Element => {
             )}
           <DateAreaWrapper>
             <input onChange={onDateSelect} type="date" value={date} name="date" id="date" />
-            <button onClick={onButtonClick}>SUBMIT</button>
+            <button onClick={onButtonClick}>
+              <BsFillHeartFill />
+              <span>Add to favorites</span>
+            </button>
           </DateAreaWrapper>
         </ApodImageWrapper>
         
@@ -115,6 +126,12 @@ const App = ():JSX.Element => {
 
     return (
       <AppWrapper>
+        <Navbar>
+          <Logo />
+          <NavItem>
+            Favorites
+          </NavItem>
+        </Navbar>
         <ErroFlash>{apodsRequestError}</ErroFlash>
         <AppHeader>
           <h2>Showing NASA Atronomy Picture of the day for {dateTextHelper ? date.split('-').join('/') : "today"}</h2>

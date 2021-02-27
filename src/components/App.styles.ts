@@ -18,7 +18,7 @@ const AppHeader = styled.header`
   margin-bottom: 1rem;
 
   @media screen and (min-width: 40em) {
-    padding: 0 0 2rem 0;
+    padding: 1rem 0;
   }
 `;
 
@@ -51,6 +51,10 @@ const DateAreaWrapper = styled.form`
   margin: 1rem auto;
   border-radius: 0.35rem;
 
+  &:hover {
+    border: 1.2px solid #025955;
+  }
+
   input {
     padding-left: 0.5rem;
     border-radius: 0.35rem 0 0 0.35rem;
@@ -62,16 +66,25 @@ const DateAreaWrapper = styled.form`
 
   button {
     border-radius:  0 0.35rem 0.35rem 0;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 0rem;
     font-size: 0.7rem;
     color: #efefef;
     background: teal;
     border: 1.2px solid teal;
     flex: 0.3;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    transition: 250ms ease-in-out;
+
+    &:hover {
+      background-color: #025955;
+      border: 1.2px solid #025955;
+    }
   }
 
   @media screen and (min-width: 40em) {
-    width: 60%;
+    width: 70%;
 
     button {
       font-size: 0.9rem;
@@ -113,7 +126,7 @@ const BtnToggle = styled.label`
   right: ${(props: BtnProp) => props.right ? "20%" : ""};
   transition: 250ms ease-in-out;
   text-shadow: #555 1px 0 10px;
-  bottom: 10%;
+  bottom: 15%;
 
   &:hover {
     color: teal;
@@ -135,11 +148,63 @@ const ErroFlash = styled.div`
   @media screen and (min-width: 40em) {
     width: 75%;
   }
-`
+`;
+
+const Navbar = styled.nav`
+  width: 100%;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #DBDBDB;
+  padding: 0.5rem 2%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+  background-color: #191919;
+
+  @media screen and (min-width: 40em) {
+    padding: 0.8rem 10%;
+  } 
+`;
+
+const NavItem = styled.span`
+  color: #efefef;
+  cursor: pointer;
+  transition: 250ms ease-in-out;
+
+  ::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+  }
+
+  &:hover {
+    color: teal;
+
+    ::after {
+      content: " *";
+      width: 100%;
+      height: 100%;
+    }
+  }
+`;
+
+
+const Logo = styled.img.attrs({
+  src: "/nasaLogo.svg"
+})`
+  object-fit: contain;
+  height: 4rem;
+  min-width: 2rem;
+  cursor: pointer;
+`;
 
 export {
   AppWrapper, AppHeader,
   ApodImageWrapper, ApodImage,
   ApiDataSection, DateAreaWrapper,
   ErroFlash, ApodVideo, BtnToggle,
+  Logo, Navbar, NavItem,
 }

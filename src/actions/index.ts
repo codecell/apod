@@ -52,4 +52,8 @@ export const fetchApod = (date:string) => {
   }
 }
 
+export const addfavoriteApod = (data: any) => {
+  
+}
+
 

@@ -7,6 +7,7 @@ This mini-app uses NASA's picture of the day API to display an image/video and a
 - [UI Preview](#UI-Preview)
 - [Technologies used](#Technologies)
 - [Installation](#Installation)
+- [Credits](#credits)
 - [Author](#author)
 - [Licence](#licence)
 
@@ -45,6 +46,9 @@ Note: Ensure  not to make your unique key public.
     ```yarn OR npm start```
 React app will automatically serve the compiled build on http://localhost:3000/ if the port is not in use, 
 if port 3000 is occupied, React will take another randomly available port.
+
+## Credits
+    - [NASA LOGO](https://seekvectorlogo.com/)
 
 ## Author
 
