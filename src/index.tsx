@@ -1,7 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+} from 'react-router-dom';
 import './index.css';
 import App from './components/App';
+import Favorites from './components/Favorites'
 import reportWebVitals from './reportWebVitals';
 
 import { createStore, applyMiddleware } from 'redux';
@@ -15,7 +21,12 @@ const store = createStore(reducers, applyMiddleware(thunk));
 
 ReactDOM.render(
     <Provider store={store}>
-      <App />
+      <Router>
+        <Switch>
+          <Route path="/" exact component={App} />
+          <Route path="/favorites" component={Favorites} />
+        </Switch>
+      </Router>
     </Provider>,
   document.getElementById('root')
 );

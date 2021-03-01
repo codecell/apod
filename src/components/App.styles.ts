@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+interface ErrorProp {
+  error: string
+}
+
 const AppWrapper = styled.div`
   height: 100vh;
   padding: 0 5% 0;
@@ -7,7 +11,7 @@ const AppWrapper = styled.div`
   overflow-y: scroll;
 
   @media screen and (min-width: 40em) {
-    padding: 0 5% 4rem;
+    padding: ${(prop: ErrorProp) => prop.error ? "5rem 5% 4rem" : "0 5% 4rem"};
   }
 `
 
@@ -99,7 +103,11 @@ const ApodImageWrapper = styled.div`
   @media screen and (min-width: 40em) {
     width: 75%;
   }
-`
+`;
+
+interface FavUrl {
+  fav: string
+}
 
 const ApodImage = styled.img.attrs({
   alt: 'NASA Astronomy Picture of the day'
@@ -107,11 +115,21 @@ const ApodImage = styled.img.attrs({
   height: 60vh;
   width: 100%;
   object-fit: cover;
+
+  @media screen and (min-width: 40em) {
+    width: ${(props: FavUrl) => props.fav ? "30%" : "100%"};
+    margin: ${(props: FavUrl) => props.fav ? "0 0.4rem 0.4rem 0" : ""};
+  }
 `;
 
 const ApodVideo = styled.div`
   height: 60vh;
   width: 100%;
+
+  @media screen and (min-width: 40em) {
+    width: ${(props: FavUrl) => props.fav ? "30%" : "100%"};
+    margin: ${(props: FavUrl) => props.fav ? "0 0.4rem 0.4rem 0" : ""};
+  }
 `;
 
 interface BtnProp {
@@ -201,10 +219,27 @@ const Logo = styled.img.attrs({
   cursor: pointer;
 `;
 
+// Favorites Page Utils
+const FavoritesCanvas = styled.article`
+  width: 100%;
+  padding: 5.5rem 2% 0;
+
+  h2 {
+    text-align: center;
+  }
+  
+  @media screen and (min-width: 40em) {
+    padding: 5.5rem 5% 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;  
+  }
+`;
+
 export {
   AppWrapper, AppHeader,
   ApodImageWrapper, ApodImage,
   ApiDataSection, DateAreaWrapper,
   ErroFlash, ApodVideo, BtnToggle,
-  Logo, Navbar, NavItem,
+  Logo, Navbar, NavItem, FavoritesCanvas,
 }

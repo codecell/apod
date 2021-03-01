@@ -21,7 +21,13 @@ export interface Apod {
  */
 export interface FetchApodAction {
   payload: Apod;
-  type: ActionTypes.fetchApods | ActionTypes.fetchApodFailure;
+  type: ActionTypes.fetchApods | ActionTypes.fetchApodFailure | ActionTypes.likeApod;
+  error: string;
+}
+
+export interface LikeApodAction {
+  payload: string;
+  type: ActionTypes.likeApod;
   error: string;
 }
 
@@ -52,8 +58,14 @@ export const fetchApod = (date:string) => {
   }
 }
 
-export const addfavoriteApod = (data: any) => {
-  
+export const addfavoriteApod = (imgUrl: any) => {
+  return (dispatch: Dispatch) => dispatch<LikeApodAction>(
+    {
+      type: ActionTypes.likeApod,
+      payload: imgUrl,
+      error: ""
+    }
+  );
 }
 
 

@@ -11,18 +11,23 @@ import {
   AppHeader, AppWrapper,
   ApodImageWrapper, ApodImage,
   ApiDataSection, DateAreaWrapper,
-  ErroFlash, ApodVideo, BtnToggle, Logo,
-  Navbar, NavItem,
+  ErroFlash, ApodVideo, BtnToggle,
 } from './App.styles';
-import Favorites from "./Favorites";
 
 // Action utils
-import { Apod, fetchApod } from '../actions';
+import { 
+  Apod, fetchApod,
+  addfavoriteApod, 
+} from '../actions';
+
+// navbar
+import Toolbar from "./Navbar";
 
 const App = ():JSX.Element => {
   // Global state
   const apods:Apod = useSelector((state: StoreState) => state.apod.apod);
   const apodsRequestError:string = useSelector((state: StoreState) => state.apod.error);
+  const favorites:string[] = useSelector((state: StoreState) => state.favoritesReducer.favorites);
 
   const dispatch = useDispatch();
   // Local states
@@ -53,11 +58,28 @@ const App = ():JSX.Element => {
     }
   }
 
-  
+  /**
+   * 
+   * @param event , add the image url to our global state , then upade localstorgae with the state.
+   */
   const onButtonClick = async (event: any) => {
     event.preventDefault();
-    
-    // Add to favourites
+
+    const favsString = localStorage.getItem("favorites");
+    const favsDatabase = favsString && JSON.parse(favsString) || [];
+
+    if (apods.url) {
+      dispatch(addfavoriteApod(apods.url));
+      cogoToast.loading(`Adding this image to your favorites ...`, { position: "bottom-center" }).then(() => {
+        // merge store state with localstorage
+        const updatedFavs = [...favsDatabase, ...favorites];
+
+        // Update Localstorage
+        localStorage.setItem("favorites", JSON.stringify(updatedFavs));
+
+        return cogoToast.success(`Successfully added Image to your favorites ...`, { position: "bottom-center" });
+      });
+    }
   }
 
   // fetch Next date data
@@ -97,9 +119,9 @@ const App = ():JSX.Element => {
     return (
       <>
         <ApodImageWrapper>
-          {apods.media_type === "image" && <ApodImage src={apods.url} />}
+          {apods.media_type === "image" && <ApodImage src={apods.url} fav="" />}
           {apods.media_type === "video" && (
-            <ApodVideo>
+            <ApodVideo fav="">
               <ReactPlayer
                 muted={true}
                 url={apods.url}
@@ -125,13 +147,8 @@ const App = ():JSX.Element => {
   } 
 
     return (
-      <AppWrapper>
-        <Navbar>
-          <Logo />
-          <NavItem>
-            Favorites
-          </NavItem>
-        </Navbar>
+      <AppWrapper error={apodsRequestError}>
+        <Toolbar />
         <ErroFlash>{apodsRequestError}</ErroFlash>
         <AppHeader>
           <h2>Showing NASA Atronomy Picture of the day for {dateTextHelper ? date.split('-').join('/') : "today"}</h2>

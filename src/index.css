@@ -7,6 +7,9 @@
 a, button {
 cursor: pointer;
 }
+a {
+  text-decoration: none;
+}
 
 input:focus, button:focus {
   outline: none;
