@@ -1,4 +1,4 @@
-import { addfavoriteApod, LikeApodAction } from "../actions";
+import { LikeApodAction } from "../actions";
 import { ActionTypes } from '../actions/types'
 
 export interface FavoritesReducerState {

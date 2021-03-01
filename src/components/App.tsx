@@ -66,7 +66,7 @@ const App = ():JSX.Element => {
     event.preventDefault();
 
     const favsString = localStorage.getItem("favorites");
-    const favsDatabase = favsString && JSON.parse(favsString) || [];
+    const favsDatabase = favsString && JSON.parse(favsString);
 
     if (apods.url) {
       dispatch(addfavoriteApod(apods.url));
@@ -156,18 +156,23 @@ const App = ():JSX.Element => {
         <ApiDataSection>
           {showApod()}
         </ApiDataSection>
-        <BtnToggle 
-          right={""}
-          onClick={(event) => getPrevDayData(event)}
-        >
-          <BsChevronLeft />
-        </BtnToggle>
-        <BtnToggle 
-          right={"right"}
-          onClick={(event) => getNextDayData(event)}
-        >
-          <BsChevronRight />
-        </BtnToggle>
+        {!apodsRequestError && (
+          <>
+            <BtnToggle 
+              right={""}
+              onClick={(event) => getPrevDayData(event)}
+            >
+              <BsChevronLeft />
+            </BtnToggle>
+              <BtnToggle 
+                right={"right"}
+                onClick={(event) => getNextDayData(event)}
+              >
+                <BsChevronRight />
+              </BtnToggle>
+          </>
+        )}
+        
       </AppWrapper>
     );
 }

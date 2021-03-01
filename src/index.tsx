@@ -15,6 +15,9 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { reducers } from './reducers';
 
+// Add an empty favorites databse
+localStorage.setItem("favorites", JSON.stringify([]))
+
 
 const store = createStore(reducers, applyMiddleware(thunk));
 
